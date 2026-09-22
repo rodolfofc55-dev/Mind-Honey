@@ -1,0 +1,6 @@
+{
+  "name": "Neurodyne Protocol - VSL",
+  "description": "Clone oficial da página de vendas Neurodyne Protocol com VSL, oferta de protocolos e comentários sociais.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
