@@ -193,7 +193,7 @@ export const PricingSection: React.FC = () => {
             Our Ironclad 60-Day 100% Satisfaction Guarantee
           </h4>
           <p className="text-sm text-gray-600 mt-1 leading-relaxed">
-            Try the Neurodyne Protocol completely risk-free. If you don't experience noticeable improvements in your memory, mental focus, and cognitive vitality within 60 days, simply contact customer support for a prompt and courteous full refund. No questions asked.
+            Try the Mind Honey App completely risk-free. If you don't experience noticeable improvements in your memory, mental focus, and cognitive vitality within 60 days, simply contact customer support for a prompt and courteous full refund. No questions asked.
           </p>
         </div>
       </div>
