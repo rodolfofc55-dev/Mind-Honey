@@ -152,7 +152,7 @@ export const CommentsSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-[#efefef] py-10 px-4 sm:px-8 lg:px-24">
+    <section id="testimonials" className="w-full bg-[#efefef] py-10 px-4 sm:px-8 lg:px-24">
       <div className="max-w-4xl mx-auto">
         {/* Title */}
         <h3 className="text-xl sm:text-2xl font-medium text-[#1c1e21] mb-6">

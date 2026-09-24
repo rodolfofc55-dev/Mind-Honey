@@ -8,7 +8,7 @@ export const Headline: React.FC<HeadlineProps> = ({ viewerCount }) => {
   return (
     <div className="w-full max-w-4xl mx-auto px-4 pt-6 pb-2 text-center sm:text-left">
       <h1 className="text-2xl sm:text-4xl lg:text-[36px] font-bold text-[#1f2937] leading-snug sm:leading-[48px] tracking-tight">
-        Neurologists: The <strong className="font-extrabold text-[#111827]">“Blueberry Shield”</strong> Brain Trick May Restore Memory After Age 60
+        Neurologists: The <strong className="font-extrabold text-[#111827]">“Honey”</strong> Brain Trick May Restore Memory After Age 60
       </h1>
     </div>
   );

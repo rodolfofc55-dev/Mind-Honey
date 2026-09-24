@@ -14,6 +14,7 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onTimeUpdate, onPitchTrigg
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [showUnmuteBanner, setShowUnmuteBanner] = useState<boolean>(true);
   const [hasStarted, setHasStarted] = useState<boolean>(false);
+  const hasTriggeredOfferRef = useRef<boolean>(false);
 
   // Total duration modeled on the original Vturb config (approx 49 min / 2986s)
   const totalDuration = 2986;
@@ -39,8 +40,10 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onTimeUpdate, onPitchTrigg
         setCurrentTime((prev) => {
           const next = prev + 1;
           if (onTimeUpdate) onTimeUpdate(next);
-          if (next >= pitchSeconds && onPitchTrigger) {
-            onPitchTrigger();
+          // Only trigger offer revelation ONCE when crossing pitch time so scroll is never trapped
+          if (next >= pitchSeconds && !hasTriggeredOfferRef.current) {
+            hasTriggeredOfferRef.current = true;
+            if (onPitchTrigger) onPitchTrigger();
           }
           if (next >= totalDuration) {
             setIsPlaying(false);
@@ -76,12 +79,16 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onTimeUpdate, onPitchTrigg
   const skipToPitch = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentTime(pitchSeconds);
-    if (onPitchTrigger) onPitchTrigger();
+    if (!hasTriggeredOfferRef.current) {
+      hasTriggeredOfferRef.current = true;
+      if (onPitchTrigger) onPitchTrigger();
+    }
   };
 
   const restartVideo = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentTime(0);
+    hasTriggeredOfferRef.current = false;
     setIsPlaying(true);
   };
 

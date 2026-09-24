@@ -20,9 +20,9 @@ const TIERS: PricingTier[] = [
     id: '6-month',
     name: '6-Month Protocol',
     protocol: 'Neurodyne Protocol',
-    price: '$97',
-    priceNum: 97,
-    perMonth: '$16.16/mo',
+    price: '$29',
+    priceNum: 29,
+    perMonth: '$4.83/mo',
     checkoutUrl: 'https://checkout.kashpay.com.br/checkout/checkout-1775429309221',
     badgeSvgHash: '51674',
     isPopular: true,
@@ -33,9 +33,9 @@ const TIERS: PricingTier[] = [
     id: '3-month',
     name: '3-Month Protocol',
     protocol: 'Neurodyne Protocol',
-    price: '$85',
-    priceNum: 85,
-    perMonth: '$28.33/mo',
+    price: '$25',
+    priceNum: 25,
+    perMonth: '$8.33/mo',
     checkoutUrl: 'https://checkout.kashpay.com.br/checkout/checkout-1775787843529',
     badgeSvgHash: '770605',
     savings: 'Most Selected',
@@ -45,27 +45,27 @@ const TIERS: PricingTier[] = [
     id: '1-month',
     name: '1-Month Protocol',
     protocol: 'Neurodyne Protocol',
-    price: '$73',
-    priceNum: 73,
-    perMonth: '$73.00/mo',
+    price: '$19',
+    priceNum: 19,
+    perMonth: '$19.00/mo',
     checkoutUrl: 'https://checkout.kashpay.com.br/checkout/checkout-1775788149071',
     badgeSvgHash: '334153',
     supply: '30-Day Starter',
   },
 ];
 
-// Clean vector fallback for payment cards in case external SVG fails to load
+// Clean vector fallback for payment cards in case external SVG fails to load (reduced discreet size)
 const PaymentBadgesSvg: React.FC<{ hash: string }> = ({ hash }) => {
   return (
-    <div className="w-full flex items-center justify-center my-3 px-2">
+    <div className="w-full flex items-center justify-center my-2 px-2">
       <img
         loading="lazy"
         decoding="async"
-        width="307"
-        height="48"
+        width="170"
+        height="26"
         src={`https://media.atomicatmedia.net/u/A4LBDUG0Y0MaMBz2kRyap84HSVH2/Pictures/bbuebY5606374.svg?quality=88#${hash}`}
         alt="Secure Payment: Visa, Mastercard, PayPal, Amex"
-        className="max-w-[280px] sm:max-w-[307px] h-auto object-contain"
+        className="max-w-[150px] sm:max-w-[170px] h-auto object-contain opacity-85 hover:opacity-100 transition-opacity"
         onError={(e) => {
           // Inline visual fallback if external CDN is blocked
           e.currentTarget.style.display = 'none';
@@ -75,7 +75,7 @@ const PaymentBadgesSvg: React.FC<{ hash: string }> = ({ hash }) => {
       />
       <div 
         style={{ display: 'none' }}
-        className="items-center justify-center gap-2 py-2 px-3 bg-white/70 rounded-lg border border-gray-200 text-[11px] font-semibold text-gray-700"
+        className="items-center justify-center gap-1.5 py-1 px-2.5 bg-white/80 rounded-md border border-gray-200 text-[10px] font-semibold text-gray-600"
       >
         <span className="text-[#1a1f71] font-bold">VISA</span>
         <span>•</span>
@@ -104,7 +104,7 @@ export const PricingSection: React.FC = () => {
           Claim Your Neurodyne Protocol Today
         </h2>
         <p className="text-sm text-gray-600 max-w-xl mx-auto mt-1">
-          Select your package below to begin restoring your mental clarity and memory with the Blueberry Shield breakthrough.
+          Select your package below to begin restoring your mental clarity and memory with the Honey breakthrough.
         </p>
       </div>
 
@@ -196,6 +196,17 @@ export const PricingSection: React.FC = () => {
             Try the Neurodyne Protocol completely risk-free. If you don't experience noticeable improvements in your memory, mental focus, and cognitive vitality within 60 days, simply contact customer support for a prompt and courteous full refund. No questions asked.
           </p>
         </div>
+      </div>
+
+      {/* Direct invitation to explore testimonials below */}
+      <div className="mt-8 text-center">
+        <a 
+          href="#testimonials"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-500 hover:text-gray-800 transition-colors py-2 px-4 rounded-full hover:bg-gray-100 cursor-pointer"
+        >
+          <span>See verified customer reviews & discussion below</span>
+          <span className="text-sm">↓</span>
+        </a>
       </div>
     </section>
   );
