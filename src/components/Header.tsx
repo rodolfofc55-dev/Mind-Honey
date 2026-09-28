@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({ showOffer, onToggleOffer, viewer
       {/* Subtle reassurance sub-banner */}
       <div className="bg-[#fcf8f2] border-b border-[#fae5cb] py-1.5 px-3 text-xs text-[#8c672b] flex items-center justify-center gap-2 text-center">
         <ShieldCheck className="w-3.5 h-3.5 text-[#b42d1f]" />
-        <span>Official Neurodyne Protocol Presentation • Verified Educational Broadcast</span>
+        <span>Official Mind Honey App Presentation • Verified Educational Broadcast</span>
       </div>
     </header>
   );

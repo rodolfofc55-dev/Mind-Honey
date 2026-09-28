@@ -19,7 +19,7 @@ const TIERS: PricingTier[] = [
   {
     id: '6-month',
     name: '6-Month Protocol',
-    protocol: 'Neurodyne Protocol',
+    protocol: 'Mind Honey App',
     price: '$29',
     priceNum: 29,
     perMonth: '$4.83/mo',
@@ -32,7 +32,7 @@ const TIERS: PricingTier[] = [
   {
     id: '3-month',
     name: '3-Month Protocol',
-    protocol: 'Neurodyne Protocol',
+    protocol: 'Mind Honey App',
     price: '$25',
     priceNum: 25,
     perMonth: '$8.33/mo',
@@ -44,7 +44,7 @@ const TIERS: PricingTier[] = [
   {
     id: '1-month',
     name: '1-Month Protocol',
-    protocol: 'Neurodyne Protocol',
+    protocol: 'Mind Honey App',
     price: '$19',
     priceNum: 19,
     perMonth: '$19.00/mo',
@@ -101,7 +101,7 @@ export const PricingSection: React.FC = () => {
           <Clock className="w-4 h-4" /> Limited Special Launch Discount
         </span>
         <h2 className="text-2xl sm:text-3xl font-extrabold text-[#392e1d] mt-2">
-          Claim Your Neurodyne Protocol Today
+          Claim Your Mind Honey App Today
         </h2>
         <p className="text-sm text-gray-600 max-w-xl mx-auto mt-1">
           Select your package below to begin restoring your mental clarity and memory with the Honey breakthrough.

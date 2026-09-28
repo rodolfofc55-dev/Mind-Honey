@@ -12,7 +12,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTerms, onOpenPrivacy }) =>
     <footer className="w-full bg-[#9e1102] text-white py-8 px-4 text-center">
       <div className="max-w-4xl mx-auto space-y-2 text-xs sm:text-sm font-light">
         <p className="font-normal">
-          Copyright <span>{currentYear}</span> - Neurodyne Protocol ®
+          Copyright <span>{currentYear}</span> - Mind Honey App ®
         </p>
         <p className="opacity-90">All rights reserved</p>
         <div className="pt-1 pb-1">
