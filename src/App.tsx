@@ -7,18 +7,21 @@ import { CommentsSection } from './components/CommentsSection';
 import { Footer } from './components/Footer';
 import { LegalModal } from './components/LegalModals';
 import { NotificationToast } from './components/NotificationToast';
-import { Sparkles, Eye, ArrowDown } from 'lucide-react';
 
 export default function App() {
-  // Offer pitch delay state (2660s in production VSL, toggleable for inspection)
+  // Offer pitch delay: 42 minutes and 55 seconds (2575 seconds)
+  // Hidden by default until the video reaches 42:55 or if already viewed in a previous session
   const [showOffer, setShowOffer] = useState<boolean>(() => {
-    // Check if user previously reached pitch or unlocked it
     if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('alreadyElsDisplayed2660');
+      const stored = localStorage.getItem('alreadyElsDisplayed2575');
       if (stored === 'true') return true;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('pitch') === 'true' || urlParams.get('offer') === 'true' || window.location.hash === '#offer' || window.location.hash === '#pitch') {
+        return true;
+      }
     }
-    // Default to true for full sales page inspection, while providing realistic delay toggle
-    return true;
+    return false;
   });
 
   // Dynamic viewer counter between 400 and 700 matching original atomicat-random
@@ -40,21 +43,9 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleToggleOffer = () => {
-    setShowOffer((prev) => {
-      const next = !prev;
-      if (next) {
-        localStorage.setItem('alreadyElsDisplayed2660', 'true');
-      } else {
-        localStorage.removeItem('alreadyElsDisplayed2660');
-      }
-      return next;
-    });
-  };
-
   const handlePitchTrigger = () => {
     setShowOffer(true);
-    localStorage.setItem('alreadyElsDisplayed2660', 'true');
+    localStorage.setItem('alreadyElsDisplayed2575', 'true');
     // Smooth scroll down to offer after brief delay
     setTimeout(() => {
       const target = document.getElementById('pricing-packages');
@@ -67,11 +58,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white text-gray-900 flex flex-col font-['Poppins',sans-serif]">
       {/* Top Banner & Header */}
-      <Header
-        showOffer={showOffer}
-        onToggleOffer={handleToggleOffer}
-        viewerCount={viewerCount}
-      />
+      <Header />
 
       {/* Main Presentation Container */}
       <main className="flex-1 flex flex-col items-center w-full">
@@ -89,24 +76,10 @@ export default function App() {
           <WatchingCounter count={viewerCount} />
         </section>
 
-        {/* Delayed Offer Pitch / Protocol Packages */}
-        {showOffer ? (
+        {/* Delayed Offer Pitch / Protocol Packages - Completely hidden until 42:55 */}
+        {showOffer && (
           <div className="w-full animate-in fade-in slide-in-from-top-4 duration-700">
             <PricingSection />
-          </div>
-        ) : (
-          <div className="w-full max-w-xl mx-auto px-4 my-8 text-center bg-gray-50 border border-dashed border-gray-300 rounded-2xl p-6">
-            <p className="text-sm text-gray-600 mb-3">
-              The <strong>Neurodyne Protocol</strong> packages are set to reveal during the presentation at the conclusion of the protocol breakdown (Pitch Time: 44m).
-            </p>
-            <button
-              onClick={handlePitchTrigger}
-              className="inline-flex items-center gap-2 bg-[#b42d1f] hover:bg-red-800 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow transition cursor-pointer"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Reveal Special Discount Packages Now</span>
-              <ArrowDown className="w-4 h-4 ml-1" />
-            </button>
           </div>
         )}
 
@@ -122,10 +95,10 @@ export default function App() {
         onOpenPrivacy={() => setActiveLegalModal('privacy')}
       />
 
-      {/* Real-time Order Notification Popups */}
-      <NotificationToast />
+      {/* Real-time Order Notification Popups (only active after pitch) */}
+      <NotificationToast showOffer={showOffer} />
 
-      {/* Terms and Privacy Modals */}
+      {/* Legal Modals */}
       <LegalModal
         isOpen={activeLegalModal !== null}
         type={activeLegalModal}

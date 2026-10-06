@@ -16,13 +16,17 @@ const NOTIFICATIONS: PurchaseNotification[] = [
   { name: 'James D.', location: 'Atlanta, GA', tier: '1-Month Protocol', timeAgo: '8 minutes ago' },
 ];
 
-export const NotificationToast: React.FC = () => {
+interface NotificationToastProps {
+  showOffer?: boolean;
+}
+
+export const NotificationToast: React.FC<NotificationToastProps> = ({ showOffer = false }) => {
   const [current, setCurrent] = useState<PurchaseNotification | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [dismissed, setDismissed] = useState<boolean>(false);
 
   useEffect(() => {
-    if (dismissed) return;
+    if (!showOffer || dismissed) return;
 
     let index = 0;
     const interval = setInterval(() => {
@@ -37,20 +41,20 @@ export const NotificationToast: React.FC = () => {
       return () => clearTimeout(hideTimer);
     }, 18000);
 
-    // Initial trigger after 6 seconds
+    // Initial trigger after 4 seconds once offer is revealed
     const firstTimer = setTimeout(() => {
       setCurrent(NOTIFICATIONS[0]);
       setIsVisible(true);
       setTimeout(() => setIsVisible(false), 5000);
-    }, 6000);
+    }, 4000);
 
     return () => {
       clearInterval(interval);
       clearTimeout(firstTimer);
     };
-  }, [dismissed]);
+  }, [showOffer, dismissed]);
 
-  if (!current || !isVisible || dismissed) return null;
+  if (!showOffer || !current || !isVisible || dismissed) return null;
 
   return (
     <div className="fixed bottom-4 left-4 z-40 max-w-xs sm:max-w-sm bg-white border border-gray-200 rounded-2xl p-3 shadow-xl flex items-center gap-3 animate-in slide-in-from-bottom-5 duration-300">
@@ -58,20 +62,20 @@ export const NotificationToast: React.FC = () => {
         <CheckCircle2 className="w-6 h-6" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-bold text-gray-800 truncate">
-          {current.name} in {current.location}
+        <p className="text-xs font-bold text-gray-900 truncate">
+          {current.name} from {current.location}
         </p>
         <p className="text-[11px] text-gray-600 truncate">
-          Verified order: <span className="font-semibold text-[#b42d1f]">{current.tier}</span>
+          Purchased <span className="font-semibold text-gray-800">{current.tier}</span>
         </p>
         <span className="text-[10px] text-gray-400">{current.timeAgo}</span>
       </div>
       <button
         onClick={() => setDismissed(true)}
         className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
-        title="Dismiss"
+        aria-label="Dismiss notification"
       >
-        <X className="w-3.5 h-3.5" />
+        <X className="w-4 h-4" />
       </button>
     </div>
   );
